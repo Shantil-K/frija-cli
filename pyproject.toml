@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "frija-cli"
+version = "2.0.26142.10"
+description = "Command-line Samsung firmware downloader (port of Frija)"
+requires-python = ">=3.10"
+license = {text = "GPL-3.0-or-later"}
+readme = "README.md"
+dependencies = [
+    "requests>=2.25",
+    "cryptography>=3.4",
+    # USB/Auto mode on Windows talks to the phone's COM port through pyserial.
+    "pyserial>=3.4; sys_platform == 'win32'",
+]
+
+[project.optional-dependencies]
+# USB/Auto mode on macOS and other non-Linux systems
+serial = ["pyserial>=3.4"]
+
+[project.urls]
+Homepage = "https://github.com/Shantil-K/frija-cli"
+Issues = "https://github.com/Shantil-K/frija-cli/issues"
+
+[project.scripts]
+frija = "frija.cli:main"
