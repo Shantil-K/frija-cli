@@ -88,6 +88,19 @@ To decrypt a file you already downloaded:
 Add `-v` to any command for debug output. This includes the raw server XML, which is
 what the Windows log file contained.
 
+## Getting help
+
+```sh
+frija --help              # list all commands
+frija <command> --help    # options for one command
+frija download --help     # e.g. every download option
+frija --version
+```
+
+Use `./frija.sh` instead of `frija` if you run it from this folder without installing.
+
+![frija --help and frija download --help](docs/help.png)
+
 ## USB / Auto mode
 
 The phone exposes a modem interface that answers `AT+DEVCONINFO` with its model, CSC,
