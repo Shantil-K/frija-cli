@@ -7,6 +7,8 @@ in the same way: FOTA version lookup, then FUS check, download, CRC32 check and 
 Want a window instead? See **[frija-gtk](https://github.com/Shantil-K/frija-gtk)**, a
 separate GTK front end that uses this package. It's kept separate so the CLI has no GUI dependencies.
 
+![frija --help and frija download --help](docs/help.png)
+
 Reading a phone over USB and finding its latest firmware:
 
 ![frija detect and frija check --auto](docs/check.png)
@@ -98,8 +100,6 @@ frija --version
 ```
 
 Use `./frija.sh` instead of `frija` if you run it from this folder without installing.
-
-![frija --help and frija download --help](docs/help.png)
 
 ## USB / Auto mode
 
