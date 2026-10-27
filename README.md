@@ -7,6 +7,14 @@ in the same way: FOTA version lookup, then FUS check, download, CRC32 check and 
 Want a window instead? See **[frija-gtk](https://github.com/Shantil-K/frija-gtk)**, a
 separate GTK front end that uses this package. It's kept separate so the CLI has no GUI dependencies.
 
+Reading a phone over USB and finding its latest firmware:
+
+![frija detect and frija check --auto](docs/check.png)
+
+Downloading it (Ctrl+C pauses; run the same command again to resume):
+
+![frija download --auto](docs/download.png)
+
 ## Requirements
 
 - Python 3.10+
