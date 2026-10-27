@@ -28,6 +28,18 @@ Downloading it (Ctrl+C pauses; run the same command again to resume):
 
 ## Installing
 
+**Ready-made binary (no Python needed).** Download from the
+[releases page](https://github.com/Shantil-K/frija-cli/releases/latest):
+
+| System | File | Run |
+|---|---|---|
+| Linux (x86-64) | `frija-linux-x86_64` | `chmod +x frija-linux-x86_64` then `./frija-linux-x86_64 --help` |
+| Windows (64-bit) | `frija-windows-x86_64.exe` | in CMD: `frija-windows-x86_64.exe --help` |
+
+Rename it to `frija` / `frija.exe` and put it on your `PATH` to use it as `frija`.
+
+**From source:**
+
 Run it from this folder without installing:
 
 ```sh

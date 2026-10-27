@@ -9,3 +9,4 @@ venv/
 *.enc2
 *.enc4
 *.zip
+*.spec

@@ -1,0 +1,65 @@
+# Builds single-file frija binaries for Linux and Windows and attaches them to a release.
+# Runs when a release is published, or by hand from the Actions tab (pick a tag).
+name: Build release binaries
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag to attach the binaries to (e.g. v1.0.0)"
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # Older Ubuntu = older glibc, so the binary runs on more distros.
+          - os: ubuntu-22.04
+            asset: frija-linux-x86_64
+            extra: ""
+            flags: ""
+          - os: windows-latest
+            asset: frija-windows-x86_64.exe
+            extra: pyserial
+            flags: --hidden-import serial.tools.list_ports
+    runs-on: ${{ matrix.os }}
+    env:
+      TAG: ${{ github.event.release.tag_name || inputs.tag }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TAG }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install build tools
+        run: python -m pip install pyinstaller requests cryptography ${{ matrix.extra }}
+
+      - name: Build
+        shell: bash
+        run: |
+          name="${{ matrix.asset }}"
+          pyinstaller --onefile --clean --name "${name%.exe}" \
+            --paths . --hidden-import frija.modem ${{ matrix.flags }} \
+            packaging/entry.py
+
+      - name: Smoke test
+        shell: bash
+        run: |
+          ./dist/${{ matrix.asset }} --version
+          ./dist/${{ matrix.asset }} --help
+
+      - name: Attach to release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "$TAG" "dist/${{ matrix.asset }}" --clobber
