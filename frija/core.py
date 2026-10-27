@@ -100,7 +100,7 @@ def download(client: FUSClient, fw: Firmware, dest: str, progress=None, cancel=_
         raise FrijaError(str(e)) from e
     if resp.status_code == 403 and not fallback:
         resp.close()
-        log.warning("HTTP 403 from CDN, retrying with fallback server")
+        log.info("Main download server is unavailable, using the backup server")
         return download(client, fw, dest, progress, cancel, fallback=True)
     if resp.status_code not in (200, 206):
         resp.close()
